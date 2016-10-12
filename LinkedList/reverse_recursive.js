@@ -14,29 +14,30 @@ function Node(val) {
 
 /* reverse the linked list recursively */
 SLL.prototype.reverse = function() {
-  if (!this.head) {
+  if (!this.head || !this.head.next) {
     return;
   }
 
   function reverse(current) {
+    //console.log("entering reverse; current =", current, "\n");
     if (!current.next) {
       return current;
     } // the last node will stop here and not proceed below. it will be the head
 
     /* 
-     then the second to last node will be the first to proceed below
-     the last node will point to the second to last
-     the second to last node will point to null
-     proceed with other nodes in the call stack until the original first node 
+      then the second to last node will be the first to proceed below
+      the last node will point to the second to last
+      the second to last node will point to null
+      proceed with other nodes in the call stack until the original first node 
     */
     var head = reverse(current.next);
-    console.log(head);
+    console.log("return from reverse; in current =", current, " head =", head, "\n");
     var nextnode = current.next;
     nextnode.next = current;
     current.next = null;
     return head;
   }
-
+  //console.log("first reverse call");
   this.head = reverse(this.head);
   console.log("final", this.head);
 };
@@ -77,9 +78,10 @@ SLL.prototype.print = function() {
 };
 
 list = new SLL();
-list.add(1);
 list.add(2);
-list.add(3);
+list.add(6);
+list.add(5);
+list.add(4);
 list.print();
 list.reverse();
 list.print();

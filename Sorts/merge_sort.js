@@ -1,69 +1,54 @@
-/* Merge Sort
-
+/* 
+  Merge Sort - divide and conquer algorithm
+  Time Complexity: O(n log n);
+  Approach: parition the array into left and right until one element array left
+  then merge the arrays together comparing the "first" element of each array
 */
 
-
-function mSort(arr, lo, hi) {
-
-  if (lo === undefined && hi === undefined) {
-    lo = 0;
-    hi = arr.length-1; 
+function mSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
   }
 
-  console.log("lo:", lo, "hi:", hi);
-  if (lo === hi) {
-    return arr.slice(lo, hi+1);
-  }
+  var mid = Math.floor(arr.length/2);
+  var left = mSort(arr.slice(0, mid)); // slice returns a copy portion into new array, last arg is not inclusive
+  var right = mSort(arr.slice(mid, arr.length));
+  console.log("left:", left, "right:", right, "arr:", arr);
 
-//  if (lo < hi) {
-    var mid = Math.floor((lo + hi)/2);
-    var left = mSort(arr, lo, mid);
-    var right = mSort(arr, mid+1, hi);
-    console.log("left:", left, "right:", right, "lo:", lo, "hi:", hi, "mid:", mid, "arr:", arr);
-    merge(arr, left, right, lo);
-    //merge(arr, lo, hi, mid);
-//  } else {
-//    console.log("else", arr, "lo", lo, "hi", hi, "mid", mid);
-//    return arr;
-//  }
+  var newarr =  merge(left, right);
+  return newarr;
 }
 
-function merge(arr, lo, hi, k) {
+function merge(left, right) {
   var i = 0;
   var j = 0;
-  //var k = arr.indexOf(lo[0]);
 
-  var left = lo;
-  var right = hi;
-  
+  var newarr = [];
+
+  // compare the "first" values from left and right array until either left or right is empty
   while (i < left.length && j < right.length) {
-    if (left[i] < right[i]) {
-      arr[k] = left[i];
-      i++;
-    } else {
-      arr[k] = right[j];
-      j++;
-    }
-    k++;
+    newarr.push(left[i] < right[j] ? left[i++] : right[j++] );
   }
 
+  // leftovers from the left?
   while (i < left.length) {
-    arr[k] = left[i];
+    newarr.push(left[i]);
     i++;
-    k++;
   }
+  // leftovers from the right?
   while (j < right.length) {
-    arr[k] = right[j];
+    newarr.push(right[j]);
     j++;
-    k++;
   }
 
-  return arr;
+  //console.log("left:", left, "right:", right, "newarr:", newarr);
+  return newarr;
 }
 
-//var arr = [6, 5, 3, 1, 8, 7, 2, 4];
-var arr = [6, 5, 3, 1];
-console.log(arr);
-mSort(arr);
-console.log(arr);
+var arr1 = [6, 5, 3, 1, 8, 7, 2, 4, 10];
+console.log(arr1);
+arr = mSort(arr1);
+console.log("output:", arr);
+
+
 

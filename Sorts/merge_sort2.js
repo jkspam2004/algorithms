@@ -1,52 +1,69 @@
-/* Merge Sort
-
+/* 
+  Merge Sort - divide and conquer algorithm
+  Time Complexity: O(n log n);
+  Approach: parition the array into left and right until one element array left
+  then merge the arrays together comparing the "first" element of each array
 */
 
 
-function mSort(arr) {
-  if (arr.length <= 1) {
+function mSort(arr, start, end) {
+
+  if (start === undefined && end === undefined) {
+    start = 0;
+    end = arr.length-1; 
+  }
+
+  console.log("start:", start, "end:", end);
+  if (start === end) {
     return arr;
   }
 
-  var newarr = [];
-  var mid = Math.floor(arr.length/2);
-  var left = mSort(arr.slice(0, mid)); // slice returns a copy portion into new array, last arg is not inclusive
-  var right = mSort(arr.slice(mid, arr.length));
-  console.log("left:", left, "right:", right, "arr:", arr);
-  merge(left, right, newarr);
+  // working on the same array but subsections using indices
+  var mid = Math.floor((start + end)/2);
+  mSort(arr, start, mid);
+  mSort(arr, mid+1, end);
+  console.log("start:", start, "end:", end, "mid:", mid, "arr:", arr);
 
-  return newarr;
+  merge(arr, start, mid, end);
 }
 
-function merge(left, right, newarr) {
-  var i = 0;
-  var j = 0;
+function merge(arr, start, mid, end) {
+  var i = start;
+  var j = mid + 1;
 
-  while (i < left.length && j < right.length) {
-    if (left[i] < right[i]) {
-      newarr.push(left[i]);
-      i++;
+  var sorted = [];
+
+  if (start === end) {
+    return;
+  }
+
+  // comparing the "first" elements of left and right sides until either array is empty 
+  while (i <=mid && j <= end) {
+    if (arr[i] < arr[j]) {
+      sorted.push(arr[i++]);
     } else {
-      newarr.push(right[i]);
-      j++;
+      sorted.push(arr[j++]);
     }
   }
 
-  while (i < left.length) {
-    newarr.push(left[i]);
-    i++;
+  // leftover from left side
+  while (i <= mid) {
+    sorted.push(arr[i++]);
   }
-  while (j < right.length) {
-    newarr.push(right[i]);
-    j++;
+  // leftover from right side
+  while (j <= end) {
+    sorted.push(arr[j++]);
   }
 
-  return newarr;
+ console.log("start=", start);
+
+  for (var n = 0; n < sorted.length; n++) {
+    arr[start + n] = sorted[n];
+  } 
 }
 
-//var arr = [6, 5, 3, 1, 8, 7, 2, 4];
-var arr = [6, 5, 3, 1];
+var arr = [6, 5, 3, 1, 8, 7, 2, 4, 10];
 console.log(arr);
-arr = mSort(arr);
-console.log("output:", arr);
+mSort(arr);
+console.log("final", arr);
 
