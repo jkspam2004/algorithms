@@ -1,0 +1,9 @@
+*.DS_store
+*.swp
+*.pyc
+venv/
+pylotVenv/
+__pycache__/
+node_modules/
+bower_components/
+
