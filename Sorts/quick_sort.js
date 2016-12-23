@@ -17,8 +17,8 @@ function partition(arr, start, end){
   var i = start - 1;  // i is our swapping index
   var piv = arr[end];
 
-  for(var j = start; j < end; j++){ // j is our comparison index
-    if(arr[j] < piv){
+  for (var j = start; j < end; j++){ // j is our comparison index
+    if (arr[j] < piv){
       i++;
       swap(arr, i, j);
     }
@@ -30,11 +30,11 @@ function partition(arr, start, end){
 
 /* call quickSort recursively until one element in array */
 function quickSort(arr, start, end){
-  if(start === undefined || end === undefined){
+  if (start === undefined || end === undefined){
     start = 0;
     end = arr.length - 1;
   }
-  if(start < end){
+  if (start < end){
     var p = partition(arr, start, end);
     quickSort(arr, start, p - 1);
     quickSort(arr, p + 1, end);
