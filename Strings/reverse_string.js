@@ -7,7 +7,7 @@
 
 function ReverseString(str) {
 	var newstr = '';
-	for (var i=str.length-1; i>=0; i--) {
+	for (var i = str.length-1; i >= 0; i--) {
 		newstr += str[i];
 	}
 	return newstr;
@@ -21,7 +21,7 @@ console.log(newstr);
 // using split
 function ReverseString2(str) {
 	var arr = str.split('');
-	for (var i=0; i<=Math.floor(arr.length/2); i++) {
+	for (var i = 0; i <= Math.floor(arr.length/2); i++) {
 		var temp = arr[i];
 		arr[i] = arr[arr.length - 1 -i];
 		arr[arr.length - 1 -i] = temp;
@@ -34,3 +34,24 @@ str = 'fruits'
 console.log(str)
 newstr = ReverseString2(str)
 console.log(newstr)
+
+
+function ReverseString3(str) {
+    var arr = str.split('');
+    var lo = 0;
+    var hi = arr.length-1;
+    while (lo < hi) {
+        var temp = arr[lo];
+        arr[lo] = arr[hi];
+        arr[hi] = temp;
+        lo++;
+        hi--;
+    }
+
+    return arr.join('');
+}
+
+str = 'apple';
+console.log(str);
+console.log(ReverseString3(str));
+

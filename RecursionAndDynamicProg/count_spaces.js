@@ -1,4 +1,5 @@
 /*
+   1/3/17
    Count Spaces in a string. 
    When the string is empty, it cannot have a space so the count of spaces is 0.
    Using recursive call, check character by character by working with substrings of the string,
@@ -6,6 +7,8 @@
 
    Like in many recursive problems, the Base Case and Build problem will be very useful. 
    Assume we have a string S represented by the characters a1a2..an
+
+   http://collabedit.com/ushet
 */
 
 
@@ -58,4 +61,11 @@ var count2 = countSpaces(string);
 console.log("iterative solution count: " + count2);
 
 
-
+// Jack's solution
+function countSpace( string ) {
+    if ( string.length === 0 ) {
+      return 0;
+    }
+  
+    return ( string[ 0 ] === ' ' ? 1 : 0 ) + countSpace( string.substring(1) );
+}
