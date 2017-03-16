@@ -1,1 +1,1 @@
-# algorithms
+# Collection of algorithm challenges
