@@ -18,7 +18,7 @@ def count_zeroes(arr):
     return count_zeroes
 
 arr = [0, 0, 0, 1, 1, 1]
-print count_zeroes(arr)   
+#print count_zeroes(arr)
 
 # binary search, O(log n) 
 def count_zeroes_best(arr):
