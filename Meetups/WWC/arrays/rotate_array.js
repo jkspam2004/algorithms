@@ -3,7 +3,8 @@ Rotate an array by 3 positions to the right
 */
 
 function rotate_array(arr, shiftby) {
-    arr_len = arr.length
+    var arr_len = arr.length,
+        offset;
 
     while (shiftby < 0) // negative offsets
         shiftby += arr_len
@@ -12,13 +13,18 @@ function rotate_array(arr, shiftby) {
 
     console.log("shiftby", shiftby);
     newarr = [];
-    for (var idx = 0; idx < arr.length; idx++) {
-        console.log(idx + shiftby);
+    for (var idx = 0; idx < arr_len; idx++) {
+
+        /*  below code is not needed, do modulus of length to get offset
+        offset = idx + shiftby
         if (idx + shiftby > arr_len - 1) {
-            newarr[idx + shiftby - arr_len] = arr[idx];
-        } else {
-            newarr[idx + shiftby] = arr[idx];
+            offset = idx + shiftby - arr_len 
         }
+        */
+
+        offset = (idx + shiftby) % arr_len // mod by array length will adjust the wrap-around index
+        newarr[offset] = arr[idx]
+
     }
     return newarr;
 }

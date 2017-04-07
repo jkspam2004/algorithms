@@ -14,7 +14,7 @@ class SLL:
             return self
         
         curr = self.head
-        while (curr.next):
+        while curr.next:
             curr = curr.next
 
         curr.next = Node(value)
@@ -30,4 +30,15 @@ class SLL:
 if __name__ == '__main__':
     x = SLL()
     x.add(3).add(4).print_list()
-   
+  
+"""
+curr = self.head
+
+# curr will end up being the last node
+while curr.next:
+    curr = curr.next
+
+# curr will end up being None, what last node was pointing to
+while curr:
+    curr = curr.next
+""" 

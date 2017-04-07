@@ -1,5 +1,5 @@
 """ find middle element in list.  if no middle, return node 
-to the left of middle """
+to the left of would be middle """
 
 from sll import SLL
 

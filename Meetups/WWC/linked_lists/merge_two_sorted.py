@@ -1,4 +1,4 @@
-""" merge two sorted linked list """
+""" merge two sorted linked lists """
 
 from sll import SLL
 
@@ -7,6 +7,7 @@ def merge_two_sorted(list1, list2):
     curr1 = list1.head
     curr2 = list2.head
 
+    # set up the head for merged list
     if not newlist.head:
         if curr1.value < curr2.value:
             newlist.head = curr1 
@@ -18,16 +19,17 @@ def merge_two_sorted(list1, list2):
         curr_merged = newlist.head
 
 
+    # get the node with smaller value from sorted lists and add to merged list
     while curr1 and curr2:
         if curr1.value < curr2.value:
             curr_merged.next = curr1
-            curr_merged = curr_merged.next
-            curr1 = curr1.next
+            curr1 = curr1.next # move up pointer for first list
         else:
             curr_merged.next = curr2
-            curr_merged = curr_merged.next
-            curr2 = curr2.next
+            curr2 = curr2.next # move up pointer for second list
+        curr_merged = curr_merged.next # move up pointer for merged list
 
+    # if any leftover from either sorted list, append to the merged list
     if curr1:
         curr_merged.next = curr1
     if curr2:
