@@ -1,4 +1,6 @@
 """
+258. Add Digits
+
 Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
 
 For example:
@@ -10,7 +12,7 @@ Could you do it without any loop/recursion in O(1) runtime?
 """
 
 # O(n) solution using a loop
-def sumToOneLoop(num):
+def addDigits(num):
     sum = 0
     while num >= 10:
         sum += num % 10 # sum up the remainder from 10
@@ -23,7 +25,7 @@ def sumToOneLoop(num):
 
     return num
 
-print(sumToOneLoop(38)) # 2
+print(addDigits(38)) # 2
 """
 num | sum
 38  | 0
@@ -37,12 +39,12 @@ num | sum
 """
 
 # O(1) solution without a loop
-def sumToOne(num):
+def addDigitsConstantTime(num):
     if num == 0:
         return 0
     return num % 9 if num % 9 != 0 else 9
 
-print(sumToOne(285))
+print(addDigitsConstantTime(285))
 
 """
 (100a + 10b + c) %9 =
