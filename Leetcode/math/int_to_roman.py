@@ -62,5 +62,5 @@ def convert2(number):
 
     return roman
 
-for num in [2017]: #[1, 3, 4, 5, 6, 7, 8, 1001, 1989, 2017, 980, 480, 5000, 5001]:
+for num in [2017, 1, 3, 4, 5, 6, 7, 8, 1001, 1989, 2017, 980, 480, 5000, 5001]:
     print(num, convert2(num))

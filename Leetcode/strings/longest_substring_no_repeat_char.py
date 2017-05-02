@@ -52,5 +52,29 @@ str = "tmmzuxt"
 print(str)
 print("longest", longestSubstr(str))
 
+class Solution:
+    # @return an integer
+    def lengthOfLongestSubstring(self, s):
+        start = maxLength = 0
+        seenChar = {}
+        longestSubstr = ""
+
+        for i, char in enumerate(s):
+            if char in seenChar and start <= seenChar[char]:
+                start = seenChar[char] + 1
+            else:
+                if (i - start + 1) > maxLength:
+                    longestSubstr = s[start:i+1]
+                    maxLength = i - start + 1
+
+            seenChar[char] = i
+
+        print(longestSubstr)
+        return maxLength
+
+x = Solution()
+print(x.lengthOfLongestSubstring("pwwkew"))
+print(x.lengthOfLongestSubstring("bbbbb"))
+print(x.lengthOfLongestSubstring("abcabcbb"))
 
             
