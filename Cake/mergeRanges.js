@@ -33,4 +33,4 @@ meetings =   [
     {startTime: 3, endTime: 5},
     {startTime: 7, endTime: 9},
 ]
-console.log(mergeRanges(meetings));
+console.log(mergeRanges(meetings)); // [ { startTime: 1, endTime: 10 }]
