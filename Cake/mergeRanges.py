@@ -1,3 +1,11 @@
+"""
+Given a list of meeting times (start, end), return a list of condensed ranges
+
+input:
+  [(0, 1), (3, 5), (4, 8), (10, 12), (9, 10)]
+returns:
+  [(0, 1), (3, 8), (9, 12)]
+"""
 
 #  need to sort start time
 # bug with the last example that should produce [(1,10)]

@@ -1,3 +1,24 @@
+/*
+Given a list of meeting times (start, end), return a list of condensed ranges
+
+input:
+  [
+    {startTime: 0,  endTime: 1},
+    {startTime: 3,  endTime: 5},
+    {startTime: 4,  endTime: 8},
+    {startTime: 10, endTime: 12},
+    {startTime: 9,  endTime: 10},
+  ]
+
+returns:
+  [
+    {startTime: 0, endTime: 1},
+    {startTime: 3, endTime: 8},
+    {startTime: 9, endTime: 12},
+  ]
+*/
+
+
 function mergeRanges(meetings) {
 
     // sort by start times
@@ -34,3 +55,19 @@ meetings =   [
     {startTime: 7, endTime: 9},
 ]
 console.log(mergeRanges(meetings)); // [ { startTime: 1, endTime: 10 }]
+
+meetings =   [
+    {startTime: 0,  endTime: 1},
+    {startTime: 3,  endTime: 5},
+    {startTime: 4,  endTime: 8},
+    {startTime: 10, endTime: 12},
+    {startTime: 9,  endTime: 10},
+];
+
+console.log(mergeRanges(meetings)); 
+/*
+[ { startTime: 0, endTime: 1 },
+  { startTime: 3, endTime: 8 },
+  { startTime: 9, endTime: 12 } ]
+*/
+
