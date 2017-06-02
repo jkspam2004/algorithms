@@ -50,10 +50,15 @@ def iq_test3(n):
     # list of zeros and ones, depending on even/odd
     n = [int(i) % 2 for i in n.split()]
 
-    if n.count(0) > 1: # more evens
+    if n.count(0) > 1: # more evens than odds
         return n.index(1) + 1  # look at index of odd 
-    else: # more odds
+    else: # more odds than evens
         return n.index(0) + 1  # look at index of even
 
 answer = iq_test3(numbers)
 print(answer) # 3
+
+"""
+list.count(elem): returns count of occurrences of elem in list
+list.index(elem): returns index position of elem in list
+"""
