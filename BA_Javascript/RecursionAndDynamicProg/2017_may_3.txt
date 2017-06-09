@@ -1,0 +1,249 @@
+1) Dice Throw Problem: Given n dice each with m faces, numbered from 1 to m, find the number of ways to get sum X. X is the summation of values on each face when all the dice are thrown.
+
+interface:
+function findDiceThrowWay( mFace, nDice, sum ) {
+   ...
+}
+
+Approach 1) (more intuitive) recursion
+Approach 2) (more intuitive) recursion with caching (top-down dynamic programming)
+Approach 3) (optional question) iterative appraoch with table filling (bottom-up dynamic programming)
+
+console.log( findDiceThrowWay(4, 2, 1) ); // 0
+console.log( findDiceThrowWay(2, 2, 3) ); // 2
+console.log( findDiceThrowWay(6, 3, 8) ); // 21
+console.log( findDiceThrowWay(4, 2, 5) ); // 4
+console.log( findDiceThrowWay(4, 3, 5) ); // 6
+
+'Pseudocode'
+Approach 1)
+
+function findDiceThrowWay( mFace, nDice, sum ) {
+  var counter = 0;
+
+  // target miss, return 0
+  if ( ... ) {
+    return 0
+  }
+  
+  // target hit, bump up counter
+  if ( ... ) {
+    return 1
+  }
+  
+  for ( var i = 1; i <= Math.min( mFace, sum ) ; i++ ) {
+    // call findDiceThrowWay
+    // hint: counter = counter + ...
+  }
+  
+  return counter
+}
+
+console.log('recursiveDiceThrow(2, 2, 3)', recursiveDiceThrow(2, 2, 3));
+console.log('recursiveDiceThrow(2, 6, 7)', recursiveDiceThrow(2, 6, 7));
+console.log('recursiveDiceThrow(2, 6, 11)', recursiveDiceThrow(2, 6, 11));
+console.log('recursiveDiceThrow(2, 6, 1)', recursiveDiceThrow(2, 6, 1));
+console.log('recursiveDiceThrow(3, 6, 8)', recursiveDiceThrow(3, 6, 8));
+
+2) Compute the value of power function power(x, n), given two integers x (base) and n (exponent, which is non-negative).
+
+interface:
+function power(x,n){
+   ...
+}
+
+Approach 1) naive version
+Approach 2) breakdown problem size in half and half
+
+
+/////////////////////////////////////////////////////////////////////
+//// Copy and paste you solution here when you are done
+//////////////////////////////////////////////////////////////////////
+
+1)
+
+
+// Carol's 01 - part 1a - recursion with check
+// NOTE: since I started coding this before Jack posted the function's layout, I have dies before faces (his example has faces before dies)
+const diceThrowWithCheckArr = (dies, faces, target) => {
+    let check = [];
+    const calc = (remainingDies, remainingTarget, pathToThisPoint) => {
+        if(remainingDies===0 && remainingTarget === 0){
+            check.push(pathToThisPoint);
+        }else if(remainingDies>0 && remainingTarget>0){       
+            for(let i = 1; i <= faces; i++){
+                calc(remainingDies-1, remainingTarget-i, pathToThisPoint.concat(i));
+            }
+        }
+    }
+    calc(dies, target, []);
+    console.log('check', check);
+    return check.length;
+}
+
+console.log('diceThrowWithCheckArr(2, 2, 3)', diceThrowWithCheckArr(2, 2, 3));
+console.log('diceThrowWithCheckArr(2, 6, 7)', diceThrowWithCheckArr(2, 6, 7));
+console.log('diceThrowWithCheckArr(2, 6, 11)', diceThrowWithCheckArr(2, 6, 11));
+console.log('diceThrowWithCheckArr(2, 6, 1)', diceThrowWithCheckArr(2, 6, 1));
+console.log('diceThrowWithCheckArr(3, 6, 8)', diceThrowWithCheckArr(3, 6, 8));
+
+// Carol's 01 - part 1b - recursion without check
+// NOTE: since I started coding this before Jack posted the function's layout, I have dies before faces (his example has faces before dies)
+const recursiveDiceThrow = (dies, faces, target) => {
+    let check = 0;
+    let count = 0;
+    const calc = (remainingDies, remainingTarget) => {
+        count++;
+        if(remainingDies===0 && remainingTarget === 0){
+            check++;
+        }else if(remainingDies>0 && remainingTarget>0){       
+            for(let i = 1; i <= faces; i++){
+                calc(remainingDies-1, remainingTarget-i);
+            }
+        }
+    }
+    calc(dies, target);
+        console.log(`calculations to answer for (${dies}, ${faces}, ${target}): ${count}`);
+    return check;
+}
+
+console.log('recursiveDiceThrow(2, 2, 3)', recursiveDiceThrow(2, 2, 3));
+console.log('recursiveDiceThrow(2, 6, 7)', recursiveDiceThrow(2, 6, 7));
+console.log('recursiveDiceThrow(2, 6, 11)', recursiveDiceThrow(2, 6, 11));
+console.log('recursiveDiceThrow(2, 6, 1)', recursiveDiceThrow(2, 6, 1));
+console.log('recursiveDiceThrow(3, 6, 8)', recursiveDiceThrow(3, 6, 8));
+
+//Carol's 01 - part 1c - recursion without check, but with reduced number of iterations by limiting number of times recursion called by not calling when current face > remainingTarget
+// NOTE: since I started coding this before Jack posted the function's layout, I have dies before faces (his example has faces before dies)
+const recursiveDiceThrowTrimmed = (dies, faces, target) => {
+    let check = 0;
+    let count = 0;
+    const calc = (remainingDies, remainingTarget) => {
+        count++;
+        let dieCeiling = Math.min(remainingTarget, faces)
+        if(remainingDies===0 && remainingTarget === 0){
+            check++;
+        }else if(remainingDies>0 && remainingTarget>0){       
+            for(let i = 1; i <= dieCeiling; i++){
+                calc(remainingDies-1, remainingTarget-i);
+            }
+        }
+    }
+    calc(dies, target);
+    console.log(`calculations to answer for (${dies}, ${faces}, ${target}): ${count}`);
+    return check;
+}
+
+console.log('recursiveDiceThrowTrimmed(2, 2, 3)', recursiveDiceThrowTrimmed(2, 2, 3));
+console.log('recursiveDiceThrowTrimmed(2, 6, 7)', recursiveDiceThrowTrimmed(2, 6, 7));
+console.log('recursiveDiceThrowTrimmed(2, 6, 11)', recursiveDiceThrowTrimmed(2, 6, 11));
+console.log('recursiveDiceThrowTrimmed(2, 6, 1)', recursiveDiceThrowTrimmed(2, 6, 1));
+console.log('recursiveDiceThrowTrimmed(3, 6, 8)', recursiveDiceThrowTrimmed(3, 6, 8));
+
+// Carol's 01 - part 1d - most concise version
+const recursiveDiceThrowTrimmedConcise = (dies, faces, target) => {
+    let count = 0;
+    if(dies < 0 || target < 0){
+        return 0;
+    }
+    if(dies === 0 && target === 0){
+        return 1;
+    }
+    for(let i = 1; i <= Math.min(faces, target); i++){
+        count = count + recursiveDiceThrowTrimmedConcise(dies-1, faces, target-i);
+    }
+    return count;
+}
+
+console.log('recursiveDiceThrowTrimmedConcise(2, 2, 3)', recursiveDiceThrowTrimmedConcise(2, 2, 3));
+console.log('recursiveDiceThrowTrimmedConcise(2, 6, 7)', recursiveDiceThrowTrimmedConcise(2, 6, 7));
+console.log('recursiveDiceThrowTrimmedConcise(2, 6, 11)', recursiveDiceThrowTrimmedConcise(2, 6, 11));
+console.log('recursiveDiceThrowTrimmedConcise(2, 6, 1)', recursiveDiceThrowTrimmedConcise(2, 6, 1));
+console.log('recursiveDiceThrowTrimmedConcise(3, 6, 8)', recursiveDiceThrowTrimmedConcise(3, 6, 8));
+
+
+
+==== Amit #1a recursion ==========
+public class Main
+{
+
+  public static void main(String[] args)
+  {
+
+    System.out.println(findDiceThrowWay(4, 2, 1)); // 0
+    System.out.println(findDiceThrowWay(2, 2, 3)); // 2
+
+    System.out.println(findDiceThrowWay(2, 2, 3));
+    System.out.println(findDiceThrowWay(6, 3, 8)); // 21
+    System.out.println(findDiceThrowWay(4, 2, 5)); // 4
+    System.out.println(findDiceThrowWay(4, 3, 5)); // 6
+
+  }
+
+  public static int findDiceThrowWay(int mFaces, int nDice, int sum)
+  {
+    int nways = 0;
+    if (sum < 0 || nDice < 0) return 0;
+
+    if (sum == 0 && nDice == 0) return 1;
+    for (int i = 1; i <= mFaces; i++)
+    {
+      nways += findDiceThrowWay(mFaces, nDice - 1, sum - i);
+    }
+    return nways;
+  }
+
+}
+
+============================================
+/////////////////
+// Jack //
+//////////////////
+1)
+Approach 1)
+function findDiceThrowWay( mFace, nDice, sum ) {
+  var counter = 0;
+
+  if ( sum < 0 || ( nDice === 1 && sum > mFace ) ) {
+    return 0;
+  }
+  
+  // target hit
+  if ( sum === 0 && nDice === 0 ) {
+    return 1;
+  }
+
+  for ( var i = 1; i <= Math.min( mFace, sum ) ; i++ ) {
+    console.log( mFace, nDice - 1, sum - i );
+    counter = counter + findDiceThrowWay( mFace, nDice - 1, sum - i );
+  }
+
+  return counter;
+}
+
+Approach 2)
+function findDiceThrowWay( mFace, nDice, sum, memo ) {
+    var counter = 0, key;
+
+    if ( sum < 0 || ( nDice === 1 && sum > mFace ) ) {
+      return 0;
+    }
+
+    // target hit
+    if ( sum === 0 && nDice === 0 ) {
+      return 1;
+    }
+
+    for ( var i = 1; i <= Math.min( mFace, sum ); i++ ) {
+      key = mFace + ':' + ( nDice - 1 ) + ':' + ( sum - i );
+
+      if ( ! memo.hasOwnProperty( key ) ) {
+        memo[ key ] = findDiceThrowWay( mFace, nDice - 1, sum - i, memo );
+      }
+
+      counter = counter + memo[ key ];
+    }
+
+    return counter;
+}
+

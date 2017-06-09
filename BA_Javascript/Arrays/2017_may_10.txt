@@ -1,0 +1,169 @@
+1) Given a set of non-overlapping & sorted intervals, insert a new interval into the intervals (merge if necessary).
+
+Example 1:
+Given intervals [1,3],[6,9], insert and merge [2,5] in as [1,5],[6,9].
+
+Example 2:
+Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16].
+
+This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10].
+
+
+2) Given an unsorted array of integers, find a pair with given sum in it.
+
+For example,
+
+Input:
+arr = [8, 7, 2, 5, 3, 1]
+sum = 10
+
+
+3) Return a range in an array that has the starting and ending indexes of a target value in a sorted array.
+Ex: findRange( [1,2,2,2,2,2,2,2,5,6,7], 2 ); // [1, 7]
+
+4) Assume you have a method indexOf which checks if one word is a substring of another. Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to indexOf( e.g., 'waterbottle' is a rotation of 'erbottlewat'")
+
+5) Given M sorted lists of variable length, print them in sorted order efficiently.
+
+
+For example,
+
+Input: 4 sorted lists of variable length
+
+[ 10, 20, 30, 40 ]
+[ 15, 25, 35 ]
+[ 27, 29, 37, 48, 93 ]
+[ 32, 33 ]
+
+Output: 
+
+10 15 20 25 27 29 30 32 33 35 37 40 48 93
+
+
+
+/////////////////////////////
+//// Solution
+/////////////////////////////
+
+//////////////
+/// Jack
+////////////////
+
+1) function insertInterval( list, interval ) {
+    var i = 0,
+        l = list.length,
+        currentInterval = [],
+        newResult = [];
+        
+  for ( ; i < l; i++ ) {
+    currentInterval = list[i];
+    
+    // no overlap
+    if (interval[1] <= currentInterval[0]) {
+      newResult.push(interval);
+      interval = currentInterval;
+    }
+    else if (currentInterval[1] < interval[0] ) {
+      newResult.push(currentInterval);
+    }
+    else {
+      interval[0] = Math.min(currentInterval[0], interval[0]);
+      interval[1] = Math.max(currentInterval[1], interval[1]);
+    }
+  }
+
+    newResult.push( interval );
+
+    return newResult;
+}
+
+// Carol's 02 -- time and space O(n)
+const pairSum = (arr, target) => {
+    let check = {};
+    for(let i = 0; i<arr.length-1; i++){
+        if(check[arr[i]]){
+            return [check[arr[i]], arr[i]]
+        }else{
+            check[target-arr[i]] = arr[i];
+        }
+    }
+    return false;
+}
+console.log(pairSum([8, 7, 2, 5, 3, 1], 10))
+console.log(pairSum([8, 7, 4, 5, 3, 1], 10))
+console.log(pairSum([8, 7, 28, 5, 31, 1], 10))
+
+
+// Carol's 05 -- can deal with 0 to n sorted arrays and duplicate numbers in or across arrays
+// as written it will print all of the numbers & return the new sorted array
+// space is O(n) and time is O(n*k) where n is the total number of elements in all arrays and k is number of arrays
+const mergeSortedArrays = (...incoming) => {
+    let merged = [];
+    while(incoming.length>0){
+        if(incoming.length === 1){
+            merged = merged.concat(incoming.shift())
+        }
+        let minLoc;  // minLoc: index of sub-array whose 0th element is the least
+        let i = 0;
+        while(i<incoming.length){
+            if(incoming[i].length===0){
+                // prune empty sub-array from incoming
+                incoming = incoming.slice(0, i).concat(incoming.slice(i+1));
+            }else{
+                // compare values of 0th element for each of incoming's sub-arrays
+                if(minLoc===undefined){
+                    minLoc = i;
+                }else{
+                    if(incoming[minLoc][0] > incoming[i][0]){
+                        minLoc = i;
+                    }                   
+                }
+                i++;
+            }
+        }
+        if(minLoc!==undefined){
+            // move 0th element of sub-array with lowest value into merged and out of that array
+            merged.push(incoming[minLoc].shift());
+        }
+    }
+    console.log(merged.join(' '))
+    return merged;
+}
+
+
+console.log(mergeSortedArrays([ 10, 20, 30, 40 ], [ 15, 25, 35 ], [ 27, 29, 37, 48, 93 ], [ 32, 33 ]));
+console.log(mergeSortedArrays([ 10, 20, 30, 40 ], [ 10, 15, 25, 35 ], [ 27, 29, 32, 37, 48, 93 ], [ 32, 33 ]));
+console.log(mergeSortedArrays([ 10, 20, 30, 40 ]));
+console.log(mergeSortedArrays([],[]));
+console.log(mergeSortedArrays([]));
+console.log(mergeSortedArrays());
+
+
+
+// Timothy - Question 5
+function mergeSortedArrays(inArrays) {
+    let result = [];
+    let resultStr = "";
+
+    for (let i = 0; i < arguments.length; i++) {
+        for (let j = 0; j < arguments[i].length; j++) {
+            result[arguments[i][j]] = 1;
+        }
+    }
+    for (let i = 0; i < result.length; i++) {
+        if (result[i]) {
+            resultStr += (i + " ");
+        }
+    }
+
+    return resultStr;
+}
+
+let mergedArrayStr = mergeSortedArrays(
+    [ 10, 20, 30, 40 ],
+    [ 15, 25, 35 ],
+    [ 27, 29, 37, 48, 93 ],
+    [ 32, 33 ]
+)
+
+console.log(mergedArrayStr);
