@@ -45,3 +45,11 @@ class FlipAndInvert:
 >>> -(-3//2)
 2
 """
+
+""" one line solution from user nishil
+class Solution(object):
+    def flipAndInvertImage(self, A):
+        return [[1-i for i in row[::-1]] for row in A]
+    
+        # step backward by 1 to reverse array items. then subtract i from 1 to invert
+"""
