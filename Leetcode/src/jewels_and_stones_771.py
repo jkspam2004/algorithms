@@ -18,6 +18,7 @@ Output: 0
 
 
 class JewelsAndStones:
+    # noinspection PyMethodMayBeStatic
     def num_jewels_in_stones(self, jewels: str, stones: str) -> int:
         jewel_set = set()
         jewels_count = 0
