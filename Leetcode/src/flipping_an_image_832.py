@@ -1,6 +1,4 @@
-from typing import List
-
-"""
+""" 832. Flipping an Image
 Given a binary matrix A, we want to flip the image horizontally, then invert it,
 and return the resulting image.
 
@@ -9,7 +7,10 @@ For example, flipping [1, 1, 0] horizontally results in [0, 1, 1].
 
 To invert an image means that each 0 is replaced by 1, and each 1 is replaced by 0.
 For example, inverting [0, 1, 1] results in [1, 0, 0].
+
+https://leetcode.com/problems/flipping-an-image
 """
+from typing import List
 
 
 class FlipAndInvert:

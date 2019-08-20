@@ -1,6 +1,4 @@
-from typing import List
-
-"""
+""" 804. Unique Morse Code Words
 International Morse Code defines a standard encoding where each letter is mapped
 to a series of dots and dashes, as follows: "a" maps to ".-", "b" maps to "-...",
 "c" maps to "-.-.", and so on.
@@ -11,7 +9,10 @@ Morse code of each letter. For example, "cba" can be written as "-.-.-....-",
 concatenation, the transformation of a word.
 
 Return the number of different transformations among all words we have.
+
+https://leetcode.com/problems/unique-morse-code-words
 """
+from typing import List
 
 
 class MorseCode:
