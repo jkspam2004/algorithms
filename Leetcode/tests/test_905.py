@@ -15,6 +15,7 @@ class TestAlgo(unittest.TestCase):
             [4, 2, 1, 3],
             ArraySort().sort_array_by_parity([4, 1, 2, 3])
         )
+
     def test_evens(self):
         self.assertListEqual(
             [8, 6, 2, 4],

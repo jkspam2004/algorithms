@@ -28,6 +28,9 @@ class ArraySort:
                 odd_arr.append(val)
 
         even_arr.extend(odd_arr)
+        """
+        even_arr += odd_arr  # concatenating the arrays also works
+        """
 
         return even_arr
 
@@ -74,7 +77,5 @@ class ArraySort:
             j -= 1
 
         return A
-        
-
 """
 
